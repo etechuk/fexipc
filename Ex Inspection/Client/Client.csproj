@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{237EED3D-11F3-4A36-8056-1547F4C27CE1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Client</RootNamespace>
+    <AssemblyName>Client</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo-fes.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AndroidLib">
+      <HintPath>..\..\..\..\Resources\Libraries\AndroidLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.Charts, Version=12.7.0.2, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar.Schedule, Version=12.7.0.2, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.7.0.2, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar2, Version=12.7.0.2, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="unvell.ReoGrid, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0a947d9ccc179105, processorArchitecture=MSIL">
+      <HintPath>..\packages\unvell.ReoGrid.dll.1.0.0.0\lib\20\unvell.ReoGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmDDBRebuild.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDDBRebuild.Designer.cs">
+      <DependentUpon>frmDDBRebuild.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDrawing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDrawing.Designer.cs">
+      <DependentUpon>frmDrawing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDrawingHac.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDrawingHac.Designer.cs">
+      <DependentUpon>frmDrawingHac.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmail.Designer.cs">
+      <DependentUpon>frmEmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLocationAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLocationAdd.Designer.cs">
+      <DependentUpon>frmLocationAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLocationRemove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLocationRemove.Designer.cs">
+      <DependentUpon>frmLocationRemove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLocations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLocations.Designer.cs">
+      <DependentUpon>frmLocations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmManufacturer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmManufacturer.Designer.cs">
+      <DependentUpon>frmManufacturer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPassword.Designer.cs">
+      <DependentUpon>frmPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPhone.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPhone.Designer.cs">
+      <DependentUpon>frmPhone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPostal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPostal.Designer.cs">
+      <DependentUpon>frmPostal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReport.Designer.cs">
+      <DependentUpon>frmReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSchedulesQuestions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSchedulesQuestions.Designer.cs">
+      <DependentUpon>frmSchedulesQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSchedulesSections.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSchedulesSections.Designer.cs">
+      <DependentUpon>frmSchedulesSections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSettings.Designer.cs">
+      <DependentUpon>frmSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSiteChoose.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSiteChoose.Designer.cs">
+      <DependentUpon>frmSiteChoose.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUsers.Designer.cs">
+      <DependentUpon>frmUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLists.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLists.Designer.cs">
+      <DependentUpon>frmLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSchedules.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSchedules.Designer.cs">
+      <DependentUpon>frmSchedules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSignIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSignIn.Designer.cs">
+      <DependentUpon>frmSignIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSync.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSync.Designer.cs">
+      <DependentUpon>frmSync.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmDDBRebuild.resx">
+      <DependentUpon>frmDDBRebuild.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDrawing.resx">
+      <DependentUpon>frmDrawing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDrawingHac.resx">
+      <DependentUpon>frmDrawingHac.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmail.resx">
+      <DependentUpon>frmEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLocationAdd.resx">
+      <DependentUpon>frmLocationAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLocationRemove.resx">
+      <DependentUpon>frmLocationRemove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLocations.resx">
+      <DependentUpon>frmLocations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmManufacturer.resx">
+      <DependentUpon>frmManufacturer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPassword.resx">
+      <DependentUpon>frmPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPhone.resx">
+      <DependentUpon>frmPhone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPostal.resx">
+      <DependentUpon>frmPostal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReport.resx">
+      <DependentUpon>frmReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSchedulesQuestions.resx">
+      <DependentUpon>frmSchedulesQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSchedulesSections.resx">
+      <DependentUpon>frmSchedulesSections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSiteChoose.resx">
+      <DependentUpon>frmSiteChoose.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSync.resx">
+      <DependentUpon>frmSync.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUsers.resx">
+      <DependentUpon>frmUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLists.resx">
+      <DependentUpon>frmLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSchedules.resx">
+      <DependentUpon>frmSchedules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSettings.resx">
+      <DependentUpon>frmSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSignIn.resx">
+      <DependentUpon>frmSignIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{03462c45-d62a-412e-82d8-d2bf746e9599}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo-fes.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shell-power-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shell-sync-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shell-tools-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shell-export-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shell-import-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shell-options-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shell-logout-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn-tools-32-off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn-tools-32-on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo-fes.ico" />
+    <None Include="Resources\btn-data-edit-16-on.png" />
+    <None Include="Resources\btn-data-edit-16-off.png" />
+    <None Include="Resources\btn-data-delete-16-on.png" />
+    <None Include="Resources\btn-data-delete-16-off.png" />
+    <None Include="Resources\btn-data-add-16-on.png" />
+    <None Include="Resources\btn-data-add-16-off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

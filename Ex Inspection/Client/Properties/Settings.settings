@@ -1,0 +1,89 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Client.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PathToData" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PathToBackups" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DataHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DataPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DataUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DataPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DataName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SignInRemember" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SignInUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FirstRun" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="WindowColour" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="RowColourPO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FFFFFF</Value>
+    </Setting>
+    <Setting Name="RowColourP1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#D93A32</Value>
+    </Setting>
+    <Setting Name="RowColourP2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF6961</Value>
+    </Setting>
+    <Setting Name="RowColourP3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF8D87</Value>
+    </Setting>
+    <Setting Name="RowColourP4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FFB2AE</Value>
+    </Setting>
+    <Setting Name="RowColourP5" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FFD6D4</Value>
+    </Setting>
+    <Setting Name="RowColourPOT" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#646464</Value>
+    </Setting>
+    <Setting Name="RowColourP1T" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FFFFFF</Value>
+    </Setting>
+    <Setting Name="RowColourP2T" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FFFFFF</Value>
+    </Setting>
+    <Setting Name="RowColourP3T" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#646464</Value>
+    </Setting>
+    <Setting Name="RowColourP4T" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#646464</Value>
+    </Setting>
+    <Setting Name="RowColourP5T" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#646464</Value>
+    </Setting>
+    <Setting Name="PathToLogo" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PathToExports" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="csReports" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=PC-ANDREW;Initial Catalog=ExInspection;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=PC-ANDREW;Initial Catalog=ExInspection;Integrated Security=True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
