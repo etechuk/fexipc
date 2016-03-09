@@ -22,12 +22,14 @@ namespace Client
 
         bool bMabIsOpen = false;
         bool bItemAdd = false;
+        bool bInspectionScheduleChanged = false;
 
         DataSet dsUsers, dsSchedules, dsDrawings, dsHacDrawings, dsManufacturers, dsImages, dsInspections, dsInspectionsFaults, dsItems, dsItemsFaults;
         string sSite = "", sArea = "", sVessel = "", sFloor = "", sGrid = "";
         int iSite = 0, iArea = 0, iVessel = 0, iFloor = 0, iGrid = 0;
         int iInspection = 0;
         int iItem = 0;
+        int iInspectionSchedule = -1;
 
         GridRow grInspection, grInspectionAnswer, grInspectionFault, grItem;
         GridCell gcInspection, gcInspectionFault, gcItem;
@@ -1713,75 +1715,59 @@ namespace Client
                             }
                         }
 
-                        DataSet at = Program.SQL.SelectAll("SELECT id,question,part,answer FROM inspections_answers WHERE inspection=" + iInspection + ";");
-                        DataSet ft = Program.SQL.SelectAll("SELECT id,question,part,fault FROM inspections_faults WHERE inspection=" + iInspection + ";");
-                        if (at.Tables.Count == 1 && at.Tables[0].Rows.Count > 0)
+                        DataSet st = Program.SQL.SelectAll("SELECT questions FROM schedules WHERE id=" + r["schedule"].ToString() + ";");
+                        if (st.Tables.Count == 1 && st.Tables[0].Rows.Count > 0 && st.Tables[0].Rows[0]["questions"].ToString() != "")
                         {
-                            DataSet st = Program.SQL.SelectAll("SELECT questions FROM schedules WHERE id=" + r["schedule"].ToString() + ";");
-                            if (st.Tables.Count == 1 && st.Tables[0].Rows.Count > 0 && st.Tables[0].Rows[0]["questions"].ToString() != "")
+                            List<string> lQuestions = new List<string>();
+                            string[] sQIDs = st.Tables[0].Rows[0]["questions"].ToString().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                            foreach (string sQ in sQIDs)
                             {
-                                List<string> lQuestions = new List<string>();
-                                string[] sQIDs = st.Tables[0].Rows[0]["questions"].ToString().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                                foreach (string sQ in sQIDs)
+                                string sQuestion = sQ.IndexOf(':') > 0 ? sQ.Substring(0, sQ.IndexOf(':')) : sQ;
+                                if (!lQuestions.Contains(sQuestion))
                                 {
-                                    string sQuestion = sQ.IndexOf(':') > 0 ? sQ.Substring(0, sQ.IndexOf(':')) : sQ;
-                                    if (!lQuestions.Contains(sQuestion))
-                                    {
-                                        lQuestions.Add(sQuestion);
-                                    }
+                                    lQuestions.Add(sQuestion);
                                 }
+                            }
 
-                                DataSet qt = Program.SQL.SelectAll("SELECT id,section,letter,number,question,parts FROM schedules_questions WHERE id IN (" + string.Join(",", lQuestions) + ");");
-                                if (qt.Tables.Count == 1 && qt.Tables[0].Rows.Count > 0)
+                            DataSet at = Program.SQL.SelectAll("SELECT id,question,part,answer FROM inspections_answers WHERE inspection=" + iInspection + ";");
+                            DataSet ft = Program.SQL.SelectAll("SELECT id,question,part,fault FROM inspections_faults WHERE inspection=" + iInspection + ";");
+                            DataSet qt = Program.SQL.SelectAll("SELECT id,section,letter,number,question,parts FROM schedules_questions WHERE id IN (" + string.Join(",", lQuestions) + ");");
+                            if (qt.Tables.Count == 1 && qt.Tables[0].Rows.Count > 0)
+                            {
+                                foreach (DataRow qr in qt.Tables[0].Rows)
                                 {
-                                    foreach (DataRow qr in qt.Tables[0].Rows)
+                                    bool bHasFault = false;
+                                    if (ft.Tables.Count == 1 && ft.Tables[0].Rows.Count > 0)
                                     {
-                                        bool bHasFault = false;
-                                        if (ft.Tables.Count == 1 && ft.Tables[0].Rows.Count > 0)
+                                        foreach (DataRow fr in ft.Tables[0].Rows)
                                         {
-                                            foreach (DataRow fr in ft.Tables[0].Rows)
+                                            if (fr["question"].ToString().Equals(qr["id"].ToString()))
                                             {
-                                                if (fr["question"].ToString().Equals(qr["id"].ToString()))
-                                                {
-                                                    bHasFault = true;
-                                                    break;
-                                                }
+                                                bHasFault = true;
+                                                break;
                                             }
                                         }
+                                    }
 
-                                        string sQuestion = qr["question"].ToString(), sAnswer = "";
-                                        string sQRef = qr["letter"].ToString() + Convert.ToInt32(qr["number"]).ToString("D2");
-                                        string[] sParts = qr["parts"] != DBNull.Value ? qr["parts"].ToString().TrimStart('{').TrimEnd('}').Split(new char[] { '}', '{' }, StringSplitOptions.RemoveEmptyEntries) : new string[] { };
+                                    string sQuestion = qr["question"].ToString(), sAnswer = "";
+                                    string sQSec = qr["letter"].ToString(), sQNum = Convert.ToInt32(qr["number"]).ToString("D2");
+                                    string[] sParts = qr["parts"] != DBNull.Value ? qr["parts"].ToString().TrimStart('{').TrimEnd('}').Split(new char[] { '}', '{' }, StringSplitOptions.RemoveEmptyEntries) : new string[] { };
 
-                                        foreach (DataRow ar in at.Tables[0].Rows)
+                                    foreach (DataRow ar in at.Tables[0].Rows)
+                                    {
+                                        if (ar["question"].ToString() == qr["id"].ToString())
                                         {
-                                            if (ar["question"].ToString() == qr["id"].ToString())
+                                            sAnswer = ar["answer"].ToString();
+                                            if (sParts.Length > 0)
                                             {
-                                                sAnswer = ar["answer"].ToString();
-                                                if (sParts.Length > 0)
+                                                for (int i = 0; i < sParts.Length; i++)
                                                 {
-                                                    for (int i = 0; i < sParts.Length; i++)
+                                                    if (ar["part"].ToString() != (i + 1).ToString())
                                                     {
-                                                        if (ar["part"].ToString() != (i + 1).ToString())
-                                                        {
-                                                            continue;
-                                                        }
-                                                        sQRef = qr["letter"].ToString() + Convert.ToInt32(qr["number"]).ToString("D2") + " P" + (i + 1);
-                                                        sQuestion = qr["question"].ToString() + " [" + sParts[i] + "]";
-                                                        GridRow ir = new GridRow(new object[] { qr["id"].ToString(), sQRef, sQuestion, sAnswer });
-                                                        ir.Tag = ar["id"].ToString();
-                                                        if (bHasFault)
-                                                        {
-                                                            ir.CellStyles.Default.Background.Color1 = Color.Red;
-                                                            ir.CellStyles.Default.Background.Color2 = Color.Red;
-                                                            ir.CellStyles.Default.TextColor = Color.White;
-                                                        }
-                                                        gInspectionAnswers.PrimaryGrid.Rows.Add(ir);
+                                                        continue;
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    GridRow ir = new GridRow(new object[] { qr["id"].ToString(), sQRef, sQuestion, sAnswer });
+                                                    sQuestion = qr["question"].ToString() + " [" + sParts[i] + "]";
+                                                    GridRow ir = new GridRow(new object[] { qr["id"].ToString(), sQSec, sQNum, (i + 1), sQuestion, sAnswer });
                                                     ir.Tag = ar["id"].ToString();
                                                     if (bHasFault)
                                                     {
@@ -1791,6 +1777,18 @@ namespace Client
                                                     }
                                                     gInspectionAnswers.PrimaryGrid.Rows.Add(ir);
                                                 }
+                                            }
+                                            else
+                                            {
+                                                GridRow ir = new GridRow(new object[] { qr["id"].ToString(), sQSec, sQNum, "", sQuestion, sAnswer });
+                                                ir.Tag = ar["id"].ToString();
+                                                if (bHasFault)
+                                                {
+                                                    ir.CellStyles.Default.Background.Color1 = Color.Red;
+                                                    ir.CellStyles.Default.Background.Color2 = Color.Red;
+                                                    ir.CellStyles.Default.TextColor = Color.White;
+                                                }
+                                                gInspectionAnswers.PrimaryGrid.Rows.Add(ir);
                                             }
                                         }
                                     }
@@ -1809,7 +1807,7 @@ namespace Client
 
         private void gInspectionAnswers_CellValueChanged(object sender, GridCellValueChangedEventArgs e)
         {
-            if (grInspectionAnswer != null && grInspectionAnswer.Tag.ToString().All(char.IsDigit))
+            if (!bInspectionScheduleChanged && grInspectionAnswer != null && grInspectionAnswer.Tag.ToString().All(char.IsDigit))
             {
                 Program.SQL.AddParameter("id", Convert.ToInt32(grInspectionAnswer.Tag));
                 Program.SQL.AddParameter("answer", grInspectionAnswer.Cells[3].Value.ToString());
@@ -1911,6 +1909,7 @@ namespace Client
                         txtItemTag.Text = r["tag"].ToString();
                         txtItemTemp.Text = r["temp_range"].ToString();
                         txtItemTRating.Text = r["trating"].ToString();
+                        txtItemCPRef.Text = r["cpref"].ToString();
 
                         cbxItemAGroup.SelectedIndex = -1;
                         foreach (DevComponents.Editors.ComboItem i in cbxItemAGroup.Items)
@@ -1999,6 +1998,15 @@ namespace Client
                             if (i.Text == r["suitable"].ToString())
                             {
                                 cbxItemSuitable.SelectedItem = i;
+                                break;
+                            }
+                        }
+                        cbxItemTraceHC.SelectedIndex = -1;
+                        foreach (DevComponents.Editors.ComboItem i in cbxItemTraceHC.Items)
+                        {
+                            if (i.Value.ToString().Equals(r["tracehc"].ToString()))
+                            {
+                                cbxItemTraceHC.SelectedItem = i;
                                 break;
                             }
                         }
@@ -2223,23 +2231,17 @@ namespace Client
             }
         }
 
-        private void cmInspectionsExport_Click(object sender, EventArgs e)
+        private void cmInspectionsExportSingle_Click(object sender, EventArgs e)
         {
-            if (grInspection != null && dsInspections.Tables.Count == 1 && dsInspections.Tables[0].Rows.Count > 0 && dsItems.Tables.Count == 1 && dsItems.Tables[0].Rows.Count > 0)
+            if (grInspection != null && dsInspections.Tables.Count == 1 && dsInspections.Tables[0].Rows.Count > 0)
             {
+                SharedData.bExportMultiple = false;
+
                 foreach (DataRow r in dsInspections.Tables[0].Rows)
                 {
                     if (r["id"].ToString() == grInspection.Tag.ToString())
                     {
                         SharedData.drExportInspection = r;
-                        break;
-                    }
-                }
-                foreach (DataRow r in dsItems.Tables[0].Rows)
-                {
-                    if (r["id"].ToString() == grItem.Tag.ToString())
-                    {
-                        SharedData.drExportItem = r;
                         break;
                     }
                 }
@@ -2270,7 +2272,7 @@ namespace Client
             }
 
             string sTagID = "";
-            Program.SQL.AddParameter("tag", Convert.ToInt32(txtInspectionTag.Text.Trim()));
+            Program.SQL.AddParameter("tag", txtInspectionTag.Text.Trim());
             DataSet ds = Program.SQL.SelectAll("SELECT id FROM items WHERE tag=@tag;");
             if (ds.Tables.Count == 1 && ds.Tables[0].Rows.Count > 0)
             {
@@ -2361,27 +2363,44 @@ namespace Client
                 }
             }
 
+            if (bInspectionScheduleChanged)
+            {
+                Program.SQL.AddParameter("inspection", iInspection);
+                int iAnswers = Program.SQL.Delete("DELETE FROM inspections_answers WHERE inspection=@inspection;");
+            }
+
+            bool bHasAnswers = false;
+            DataSet d = Program.SQL.SelectAll("SELECT id FROM inspections_answers WHERE inspection=" + iInspection + ";");
+            if (d.Tables.Count == 1 && d.Tables[0].Rows.Count > 0)
+            {
+                bHasAnswers = true;
+            }
             foreach (GridRow gr in gInspectionAnswers.PrimaryGrid.Rows)
             {
-                DataSet d = Program.SQL.SelectAll("SELECT id,answer FROM inspections_answers WHERE inspection=" + iInspection + ";");
-                if (d.Tables.Count == 1 && d.Tables[0].Rows.Count > 0)
+                Program.SQL.AddParameter("ent", DateTime.Now);
+                Program.SQL.AddParameter("answer", gr.Cells[5].Value.ToString());
+                if (iInspection > 0 && bHasAnswers)
                 {
-                    foreach (DataRow dr in d.Tables[0].Rows)
+                    Program.SQL.AddParameter("id", Convert.ToInt32(gr.Tag));
+                    int a = Program.SQL.Update("UPDATE inspections_answers SET answer=@answer,modified=@ent WHERE id=@id");
+                }
+                else
+                {
+                    string sQ = gr.Cells[0].Value.ToString().Trim(), sP = gr.Cells[3].Value.ToString().Trim();
+                    Program.SQL.AddParameter("question", Convert.ToInt32(sQ));
+                    if (sP != "" && sP.All(char.IsDigit))
                     {
-                        if (Convert.ToInt32(dr["id"]).Equals(Convert.ToInt32(gr.Tag)))
-                        {
-                            //gr.Cells[3].Value;
-                            Program.SQL.AddParameter("id", Convert.ToInt32(dr["id"]));
-                            Program.SQL.AddParameter("answer", gr.Cells[3].ToString());
-                            int a = Program.SQL.Update("UPDATE inspections_answers SET answer=@answer WHERE id=@id");
-                        }
+                        Program.SQL.AddParameter("part", Convert.ToInt32(sP));
                     }
+
+                    Program.SQL.AddParameter("inspection", iInspection > 0 ? iInspection : iRes);
+                    int a = Program.SQL.Update("INSERT INTO inspections_answers (inspection,question,answer,entered,modified" + (sP != "" ? ",part" : "") + ") VALUES (@inspection,@question,@answer,@ent,@ent" + (sP != "" ? ",@part" : "") + ")");
                 }
             }
 
             foreach (GridRow gr in gInspectionFaults.PrimaryGrid.Rows)
             {
-                DataSet d = Program.SQL.SelectAll("SELECT id,answer FROM inspections_faults WHERE inspection=" + iInspection + ";");
+                d = Program.SQL.SelectAll("SELECT id,fault FROM inspections_faults WHERE inspection=" + iInspection + ";");
                 if (d.Tables.Count == 1 && d.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow dr in d.Tables[0].Rows)
@@ -2739,6 +2758,75 @@ namespace Client
         private void dtInspectionsFilterTo_TextChanged(object sender, EventArgs e)
         {
             LoadInspections();
+        }
+
+        private void cbxInspectionSchedule_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (!bInspectionScheduleChanged && gInspectionAnswers.PrimaryGrid.Rows.Count > 0 && iInspection > 0)
+            {
+                bInspectionScheduleChanged = true;
+                Program.SQL.AddParameter("inspection", iInspection);
+                DataSet d = Program.SQL.SelectAll("SELECT id FROM inspections_answers WHERE inspection=@inspection;");
+                if (d.Tables.Count == 1 && d.Tables[0].Rows.Count > 0)
+                {
+                    DialogResult dlg = MessageBox.Show("Answers have already been provided for this\ninspection. Changing the schedule will remove\nall answers. Do you want to continue?", "Schedule Change", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dlg == DialogResult.No)
+                    {
+                        bInspectionScheduleChanged = false;
+                        cbxInspectionSchedule.SelectedIndex = iInspectionSchedule;
+                        return;
+                    }
+                }
+            }
+
+            if (gInspectionAnswers.PrimaryGrid.Rows.Count > 0)
+            {
+                gInspectionAnswers.PrimaryGrid.Rows.Clear();
+            }
+
+            DevComponents.Editors.ComboItem ci = (DevComponents.Editors.ComboItem)cbxInspectionSchedule.Items[cbxInspectionSchedule.SelectedIndex];
+            DataSet st = Program.SQL.SelectAll("SELECT questions FROM schedules WHERE id=" + ci.Value.ToString() + ";");
+            if (st.Tables.Count == 1 && st.Tables[0].Rows.Count > 0 && st.Tables[0].Rows[0]["questions"].ToString() != "")
+            {
+                List<string> lQuestions = new List<string>();
+                string[] sQIDs = st.Tables[0].Rows[0]["questions"].ToString().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string sQ in sQIDs)
+                {
+                    string sQuestion = sQ.IndexOf(':') > 0 ? sQ.Substring(0, sQ.IndexOf(':')) : sQ;
+                    if (!lQuestions.Contains(sQuestion))
+                    {
+                        lQuestions.Add(sQuestion);
+                    }
+                }
+
+                DataSet qt = Program.SQL.SelectAll("SELECT id,section,letter,number,question,parts FROM schedules_questions WHERE id IN (" + string.Join(",", lQuestions) + ");");
+                if (qt.Tables.Count == 1 && qt.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow qr in qt.Tables[0].Rows)
+                    {
+                        GridRow ir = new GridRow();
+                        string sQuestion = qr["question"].ToString(), sQSec = qr["letter"].ToString(), sQNum = Convert.ToInt32(qr["number"]).ToString("D2");
+                        string[] sParts = qr["parts"] != DBNull.Value ? qr["parts"].ToString().TrimStart('{').TrimEnd('}').Split(new char[] { '}', '{' }, StringSplitOptions.RemoveEmptyEntries) : new string[] { };
+
+                        if (sParts.Length > 0)
+                        {
+                            for (int i = 0; i < sParts.Length; i++)
+                            {
+                                sQuestion = qr["question"].ToString() + " [" + sParts[i] + "]";
+                                ir = new GridRow(new object[] { qr["id"].ToString(), sQSec, sQNum, (i + 1), sQuestion, "" });
+                                ir.Tag = qr["id"].ToString();
+                                gInspectionAnswers.PrimaryGrid.Rows.Add(ir);
+                            }
+                        }
+                        else
+                        {
+                            ir = new GridRow(new object[] { qr["id"].ToString(), sQSec, sQNum, "", sQuestion, "" });
+                            ir.Tag = qr["id"].ToString();
+                            gInspectionAnswers.PrimaryGrid.Rows.Add(ir);
+                        }
+                    }
+                }
+            }
         }
 
         private void dtItemsFilterFrom_TextChanged(object sender, EventArgs e)

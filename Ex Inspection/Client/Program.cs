@@ -67,6 +67,7 @@ namespace Client
 
     public static class SharedData
     {
+        public static bool bExportMultiple = false;
         public static DataRow drExportInspection;
         public static DataRow drExportItem;
 

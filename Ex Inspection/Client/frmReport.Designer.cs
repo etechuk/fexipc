@@ -28,13 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.rv = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.sm = new DevComponents.DotNetBar.StyleManager(this.components);
             this.SuspendLayout();
+            // 
+            // rv
+            // 
+            this.rv.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.rv.ForeColor = System.Drawing.Color.Black;
+            this.rv.Location = new System.Drawing.Point(13, 13);
+            this.rv.Name = "rv";
+            this.rv.Size = new System.Drawing.Size(919, 556);
+            this.rv.TabIndex = 0;
+            // 
+            // sm
+            // 
+            this.sm.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2016;
+            this.sm.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))), System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(57)))), ((int)(((byte)(123))))));
             // 
             // frmReport
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.CaptionFont = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ClientSize = new System.Drawing.Size(944, 581);
+            this.Controls.Add(this.rv);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.Name = "frmReport";
@@ -46,5 +64,8 @@
         }
 
         #endregion
+
+        private Microsoft.Reporting.WinForms.ReportViewer rv;
+        private DevComponents.DotNetBar.StyleManager sm;
     }
 }

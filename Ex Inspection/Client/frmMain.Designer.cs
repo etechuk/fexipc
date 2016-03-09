@@ -41,19 +41,6 @@
             DevComponents.DotNetBar.SuperGrid.Style.Background background9 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
             DevComponents.DotNetBar.SuperGrid.Style.Padding padding2 = new DevComponents.DotNetBar.SuperGrid.Style.Padding();
             DevComponents.DotNetBar.SuperGrid.Style.Background background10 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Background background21 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Padding padding5 = new DevComponents.DotNetBar.SuperGrid.Style.Padding();
-            DevComponents.DotNetBar.SuperGrid.Style.Background background22 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Background background23 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Background background24 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Background background25 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Background background26 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Background background27 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Background background28 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Background background29 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Padding padding6 = new DevComponents.DotNetBar.SuperGrid.Style.Padding();
-            DevComponents.DotNetBar.SuperGrid.Style.Background background30 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Padding padding7 = new DevComponents.DotNetBar.SuperGrid.Style.Padding();
             DevComponents.DotNetBar.SuperGrid.Style.Background background11 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
             DevComponents.DotNetBar.SuperGrid.Style.Padding padding3 = new DevComponents.DotNetBar.SuperGrid.Style.Padding();
             DevComponents.DotNetBar.SuperGrid.Style.Background background12 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
@@ -66,6 +53,19 @@
             DevComponents.DotNetBar.SuperGrid.Style.Background background19 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
             DevComponents.DotNetBar.SuperGrid.Style.Padding padding4 = new DevComponents.DotNetBar.SuperGrid.Style.Padding();
             DevComponents.DotNetBar.SuperGrid.Style.Background background20 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
+            DevComponents.DotNetBar.SuperGrid.Style.Padding padding5 = new DevComponents.DotNetBar.SuperGrid.Style.Padding();
+            DevComponents.DotNetBar.SuperGrid.Style.Background background21 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
+            DevComponents.DotNetBar.SuperGrid.Style.Padding padding6 = new DevComponents.DotNetBar.SuperGrid.Style.Padding();
+            DevComponents.DotNetBar.SuperGrid.Style.Background background22 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
+            DevComponents.DotNetBar.SuperGrid.Style.Background background23 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
+            DevComponents.DotNetBar.SuperGrid.Style.Background background24 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
+            DevComponents.DotNetBar.SuperGrid.Style.Background background25 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
+            DevComponents.DotNetBar.SuperGrid.Style.Background background26 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
+            DevComponents.DotNetBar.SuperGrid.Style.Background background27 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
+            DevComponents.DotNetBar.SuperGrid.Style.Background background28 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
+            DevComponents.DotNetBar.SuperGrid.Style.Background background29 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
+            DevComponents.DotNetBar.SuperGrid.Style.Padding padding7 = new DevComponents.DotNetBar.SuperGrid.Style.Padding();
+            DevComponents.DotNetBar.SuperGrid.Style.Background background30 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
             DevComponents.DotNetBar.Charts.ChartXy chartXy1 = new DevComponents.DotNetBar.Charts.ChartXy();
             DevComponents.DotNetBar.Charts.AxisTitle axisTitle1 = new DevComponents.DotNetBar.Charts.AxisTitle();
             DevComponents.DotNetBar.Charts.AxisTitle axisTitle2 = new DevComponents.DotNetBar.Charts.AxisTitle();
@@ -161,7 +161,9 @@
             this.tpInspectionsAnswers = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.gInspectionAnswers = new DevComponents.DotNetBar.SuperGrid.SuperGridControl();
             this.gInspectionAnswersID = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.gInspectionAnswersQS = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gInspectionAnswersQID = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.gInspectionAnswersPID = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gInspectionAnswersQuestion = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gInspectionAnswersAnswer = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.tiInspectionAnswers = new DevComponents.DotNetBar.SuperTabItem();
@@ -193,6 +195,7 @@
             this.gInspectionFaults = new DevComponents.DotNetBar.SuperGrid.SuperGridControl();
             this.gInspectionFaultsPhoto = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gInspectionFaultsFault = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.gInspectionFaultsPriority = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gInspectionFaultsResolved = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.tiInspectionFaults = new DevComponents.DotNetBar.SuperTabItem();
             this.dtInspectionsFilterTo = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
@@ -399,7 +402,6 @@
             this.msbiDDRebuild = new DevComponents.DotNetBar.ButtonItem();
             this.sm = new DevComponents.DotNetBar.StyleManager(this.components);
             this.cpMain = new DevComponents.DotNetBar.Controls.CircularProgress();
-            this.gInspectionFaultsPriority = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.ms.SuspendLayout();
             this.mtpInspections.SuspendLayout();
             this.pInspections.SuspendLayout();
@@ -853,11 +855,10 @@
             // 
             // cmInspectionsExport
             // 
-            this.cmInspectionsExport.Enabled = false;
             this.cmInspectionsExport.Name = "cmInspectionsExport";
             this.cmInspectionsExport.Size = new System.Drawing.Size(187, 22);
             this.cmInspectionsExport.Text = "Export this inspection";
-            this.cmInspectionsExport.Click += new System.EventHandler(this.cmInspectionsExport_Click);
+            this.cmInspectionsExport.Click += new System.EventHandler(this.cmInspectionsExportSingle_Click);
             // 
             // gcInspectionAdded
             // 
@@ -1022,9 +1023,9 @@
             this.tcInspections.ControlBox.MenuBox,
             this.tcInspections.ControlBox.CloseBox});
             this.tcInspections.ControlBox.Visible = false;
-            this.tcInspections.Controls.Add(this.tpInspectionsFaults);
             this.tcInspections.Controls.Add(this.tpInspectionsAnswers);
             this.tcInspections.Controls.Add(this.tpInspectionGeneral);
+            this.tcInspections.Controls.Add(this.tpInspectionsFaults);
             this.tcInspections.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.tcInspections.ForeColor = System.Drawing.Color.Black;
             this.tcInspections.Location = new System.Drawing.Point(14, 14);
@@ -1057,59 +1058,59 @@
             // 
             this.gInspectionAnswers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.gInspectionAnswers.DefaultVisualStyles.CellStyles.Default.Alignment = DevComponents.DotNetBar.SuperGrid.Style.Alignment.MiddleLeft;
-            background21.Color1 = System.Drawing.Color.White;
-            background21.Color2 = System.Drawing.Color.White;
-            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.Default.Background = background21;
+            background11.Color1 = System.Drawing.Color.White;
+            background11.Color2 = System.Drawing.Color.White;
+            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.Default.Background = background11;
             this.gInspectionAnswers.DefaultVisualStyles.CellStyles.Default.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            padding5.Left = 5;
-            padding5.Right = 5;
-            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.Default.Padding = padding5;
+            padding3.Left = 5;
+            padding3.Right = 5;
+            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.Default.Padding = padding3;
             this.gInspectionAnswers.DefaultVisualStyles.CellStyles.Default.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            background22.Color1 = System.Drawing.Color.LightGray;
-            background22.Color2 = System.Drawing.Color.LightGray;
-            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.MouseOver.Background = background22;
+            background12.Color1 = System.Drawing.Color.LightGray;
+            background12.Color2 = System.Drawing.Color.LightGray;
+            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.MouseOver.Background = background12;
             this.gInspectionAnswers.DefaultVisualStyles.CellStyles.MouseOver.TextColor = System.Drawing.Color.Black;
-            background23.Color1 = System.Drawing.Color.White;
-            background23.Color2 = System.Drawing.Color.White;
-            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnly.Background = background23;
+            background13.Color1 = System.Drawing.Color.White;
+            background13.Color2 = System.Drawing.Color.White;
+            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnly.Background = background13;
             this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnly.TextColor = System.Drawing.Color.Gray;
-            background24.Color1 = System.Drawing.Color.LightGray;
-            background24.Color2 = System.Drawing.Color.LightGray;
-            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnlyMouseOver.Background = background24;
+            background14.Color1 = System.Drawing.Color.LightGray;
+            background14.Color2 = System.Drawing.Color.LightGray;
+            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnlyMouseOver.Background = background14;
             this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnlyMouseOver.TextColor = System.Drawing.Color.DimGray;
-            background25.Color1 = System.Drawing.Color.Gainsboro;
-            background25.Color2 = System.Drawing.Color.Gainsboro;
-            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnlySelected.Background = background25;
+            background15.Color1 = System.Drawing.Color.Gainsboro;
+            background15.Color2 = System.Drawing.Color.Gainsboro;
+            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnlySelected.Background = background15;
             this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnlySelected.TextColor = System.Drawing.Color.Gray;
-            background26.Color1 = System.Drawing.Color.DarkGray;
-            background26.Color2 = System.Drawing.Color.DarkGray;
-            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnlySelectedMouseOver.Background = background26;
+            background16.Color1 = System.Drawing.Color.DarkGray;
+            background16.Color2 = System.Drawing.Color.DarkGray;
+            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnlySelectedMouseOver.Background = background16;
             this.gInspectionAnswers.DefaultVisualStyles.CellStyles.ReadOnlySelectedMouseOver.TextColor = System.Drawing.Color.DimGray;
-            background27.Color1 = System.Drawing.Color.Gainsboro;
-            background27.Color2 = System.Drawing.Color.Gainsboro;
-            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.Selected.Background = background27;
+            background17.Color1 = System.Drawing.Color.Gainsboro;
+            background17.Color2 = System.Drawing.Color.Gainsboro;
+            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.Selected.Background = background17;
             this.gInspectionAnswers.DefaultVisualStyles.CellStyles.Selected.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            background28.Color1 = System.Drawing.Color.DarkGray;
-            background28.Color2 = System.Drawing.Color.DarkGray;
-            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.SelectedMouseOver.Background = background28;
+            background18.Color1 = System.Drawing.Color.DarkGray;
+            background18.Color2 = System.Drawing.Color.DarkGray;
+            this.gInspectionAnswers.DefaultVisualStyles.CellStyles.SelectedMouseOver.Background = background18;
             this.gInspectionAnswers.DefaultVisualStyles.CellStyles.SelectedMouseOver.TextColor = System.Drawing.Color.Black;
             this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.Default.Alignment = DevComponents.DotNetBar.SuperGrid.Style.Alignment.MiddleLeft;
-            background29.Color1 = System.Drawing.Color.White;
-            background29.Color2 = System.Drawing.SystemColors.Control;
-            this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.Default.Background = background29;
+            background19.Color1 = System.Drawing.Color.White;
+            background19.Color2 = System.Drawing.SystemColors.Control;
+            this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.Default.Background = background19;
             this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.Default.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            padding6.Left = 5;
-            padding6.Right = 5;
-            this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.Default.Padding = padding6;
+            padding4.Left = 5;
+            padding4.Right = 5;
+            this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.Default.Padding = padding4;
             this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.Default.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.ReadOnly.Alignment = DevComponents.DotNetBar.SuperGrid.Style.Alignment.MiddleLeft;
-            background30.Color1 = System.Drawing.Color.White;
-            background30.Color2 = System.Drawing.SystemColors.Control;
-            this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.ReadOnly.Background = background30;
+            background20.Color1 = System.Drawing.Color.White;
+            background20.Color2 = System.Drawing.SystemColors.Control;
+            this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.ReadOnly.Background = background20;
             this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.ReadOnly.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            padding7.Left = 5;
-            padding7.Right = 5;
-            this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.ReadOnly.Padding = padding7;
+            padding5.Left = 5;
+            padding5.Right = 5;
+            this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.ReadOnly.Padding = padding5;
             this.gInspectionAnswers.DefaultVisualStyles.ColumnHeaderStyles.ReadOnly.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.gInspectionAnswers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gInspectionAnswers.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed;
@@ -1121,7 +1122,9 @@
             // 
             // 
             this.gInspectionAnswers.PrimaryGrid.Columns.Add(this.gInspectionAnswersID);
+            this.gInspectionAnswers.PrimaryGrid.Columns.Add(this.gInspectionAnswersQS);
             this.gInspectionAnswers.PrimaryGrid.Columns.Add(this.gInspectionAnswersQID);
+            this.gInspectionAnswers.PrimaryGrid.Columns.Add(this.gInspectionAnswersPID);
             this.gInspectionAnswers.PrimaryGrid.Columns.Add(this.gInspectionAnswersQuestion);
             this.gInspectionAnswers.PrimaryGrid.Columns.Add(this.gInspectionAnswersAnswer);
             this.gInspectionAnswers.PrimaryGrid.MultiSelect = false;
@@ -1142,28 +1145,43 @@
             this.gInspectionAnswersID.AutoSizeMode = DevComponents.DotNetBar.SuperGrid.ColumnAutoSizeMode.AllCells;
             this.gInspectionAnswersID.HeaderText = "DID";
             this.gInspectionAnswersID.MinimumWidth = 50;
-            this.gInspectionAnswersID.Name = "DatabaseID";
+            this.gInspectionAnswersID.Name = "DID";
             this.gInspectionAnswersID.ToolTip = "Database question ID";
             this.gInspectionAnswersID.Width = 50;
+            // 
+            // gInspectionAnswersQS
+            // 
+            this.gInspectionAnswersQS.AutoSizeMode = DevComponents.DotNetBar.SuperGrid.ColumnAutoSizeMode.None;
+            this.gInspectionAnswersQS.HeaderText = "Sect.";
+            this.gInspectionAnswersQS.MinimumWidth = 45;
+            this.gInspectionAnswersQS.Name = "QSec";
+            this.gInspectionAnswersQS.Width = 45;
             // 
             // gInspectionAnswersQID
             // 
             this.gInspectionAnswersQID.AllowEdit = false;
-            this.gInspectionAnswersQID.AutoSizeMode = DevComponents.DotNetBar.SuperGrid.ColumnAutoSizeMode.AllCells;
-            this.gInspectionAnswersQID.HeaderText = "QID";
-            this.gInspectionAnswersQID.MinimumWidth = 60;
-            this.gInspectionAnswersQID.Name = "QuestionID";
+            this.gInspectionAnswersQID.HeaderText = "Num.";
+            this.gInspectionAnswersQID.MinimumWidth = 45;
+            this.gInspectionAnswersQID.Name = "QNum";
             this.gInspectionAnswersQID.ToolTip = "Schedule question ID";
-            this.gInspectionAnswersQID.Width = 60;
+            this.gInspectionAnswersQID.Width = 45;
+            // 
+            // gInspectionAnswersPID
+            // 
+            this.gInspectionAnswersPID.AutoSizeMode = DevComponents.DotNetBar.SuperGrid.ColumnAutoSizeMode.None;
+            this.gInspectionAnswersPID.HeaderText = "Part";
+            this.gInspectionAnswersPID.MinimumWidth = 45;
+            this.gInspectionAnswersPID.Name = "QPrt";
+            this.gInspectionAnswersPID.Width = 45;
             // 
             // gInspectionAnswersQuestion
             // 
             this.gInspectionAnswersQuestion.AllowEdit = false;
             this.gInspectionAnswersQuestion.AutoSizeMode = DevComponents.DotNetBar.SuperGrid.ColumnAutoSizeMode.Fill;
             this.gInspectionAnswersQuestion.HeaderText = "Question";
-            this.gInspectionAnswersQuestion.MinimumWidth = 400;
+            this.gInspectionAnswersQuestion.MinimumWidth = 300;
             this.gInspectionAnswersQuestion.Name = "Question";
-            this.gInspectionAnswersQuestion.Width = 400;
+            this.gInspectionAnswersQuestion.Width = 300;
             // 
             // gInspectionAnswersAnswer
             // 
@@ -1413,6 +1431,7 @@
             this.cbxInspectionSchedule.Size = new System.Drawing.Size(144, 25);
             this.cbxInspectionSchedule.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cbxInspectionSchedule.TabIndex = 6;
+            this.cbxInspectionSchedule.SelectionChangeCommitted += new System.EventHandler(this.cbxInspectionSchedule_SelectionChangeCommitted);
             // 
             // txtInspectionTag
             // 
@@ -1538,55 +1557,55 @@
             // 
             this.gInspectionFaults.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.gInspectionFaults.DefaultVisualStyles.CellStyles.Default.Alignment = DevComponents.DotNetBar.SuperGrid.Style.Alignment.MiddleLeft;
-            background11.Color1 = System.Drawing.Color.White;
-            background11.Color2 = System.Drawing.Color.White;
-            this.gInspectionFaults.DefaultVisualStyles.CellStyles.Default.Background = background11;
+            background21.Color1 = System.Drawing.Color.White;
+            background21.Color2 = System.Drawing.Color.White;
+            this.gInspectionFaults.DefaultVisualStyles.CellStyles.Default.Background = background21;
             this.gInspectionFaults.DefaultVisualStyles.CellStyles.Default.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            padding3.Left = 5;
-            padding3.Right = 5;
-            this.gInspectionFaults.DefaultVisualStyles.CellStyles.Default.Padding = padding3;
+            padding6.Left = 5;
+            padding6.Right = 5;
+            this.gInspectionFaults.DefaultVisualStyles.CellStyles.Default.Padding = padding6;
             this.gInspectionFaults.DefaultVisualStyles.CellStyles.Default.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            background12.Color1 = System.Drawing.Color.LightGray;
-            background12.Color2 = System.Drawing.Color.DarkGray;
-            this.gInspectionFaults.DefaultVisualStyles.CellStyles.MouseOver.Background = background12;
+            background22.Color1 = System.Drawing.Color.LightGray;
+            background22.Color2 = System.Drawing.Color.DarkGray;
+            this.gInspectionFaults.DefaultVisualStyles.CellStyles.MouseOver.Background = background22;
             this.gInspectionFaults.DefaultVisualStyles.CellStyles.MouseOver.TextColor = System.Drawing.Color.Black;
-            background13.Color1 = System.Drawing.Color.White;
-            background13.Color2 = System.Drawing.Color.White;
-            this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnly.Background = background13;
+            background23.Color1 = System.Drawing.Color.White;
+            background23.Color2 = System.Drawing.Color.White;
+            this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnly.Background = background23;
             this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnly.TextColor = System.Drawing.Color.Gray;
-            background14.Color1 = System.Drawing.Color.LightGray;
-            background14.Color2 = System.Drawing.Color.LightGray;
-            this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnlyMouseOver.Background = background14;
+            background24.Color1 = System.Drawing.Color.LightGray;
+            background24.Color2 = System.Drawing.Color.LightGray;
+            this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnlyMouseOver.Background = background24;
             this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnlyMouseOver.TextColor = System.Drawing.Color.DimGray;
-            background15.Color1 = System.Drawing.Color.Gainsboro;
-            background15.Color2 = System.Drawing.Color.Gainsboro;
-            this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnlySelected.Background = background15;
+            background25.Color1 = System.Drawing.Color.Gainsboro;
+            background25.Color2 = System.Drawing.Color.Gainsboro;
+            this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnlySelected.Background = background25;
             this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnlySelected.TextColor = System.Drawing.Color.Gray;
-            background16.Color1 = System.Drawing.Color.DarkGray;
-            background16.Color2 = System.Drawing.Color.DarkGray;
-            this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnlySelectedMouseOver.Background = background16;
+            background26.Color1 = System.Drawing.Color.DarkGray;
+            background26.Color2 = System.Drawing.Color.DarkGray;
+            this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnlySelectedMouseOver.Background = background26;
             this.gInspectionFaults.DefaultVisualStyles.CellStyles.ReadOnlySelectedMouseOver.TextColor = System.Drawing.Color.DimGray;
-            background17.Color1 = System.Drawing.Color.Gainsboro;
-            background17.Color2 = System.Drawing.Color.Gainsboro;
-            this.gInspectionFaults.DefaultVisualStyles.CellStyles.Selected.Background = background17;
+            background27.Color1 = System.Drawing.Color.Gainsboro;
+            background27.Color2 = System.Drawing.Color.Gainsboro;
+            this.gInspectionFaults.DefaultVisualStyles.CellStyles.Selected.Background = background27;
             this.gInspectionFaults.DefaultVisualStyles.CellStyles.Selected.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            background18.Color1 = System.Drawing.Color.DarkGray;
-            background18.Color2 = System.Drawing.Color.DarkGray;
-            this.gInspectionFaults.DefaultVisualStyles.CellStyles.SelectedMouseOver.Background = background18;
+            background28.Color1 = System.Drawing.Color.DarkGray;
+            background28.Color2 = System.Drawing.Color.DarkGray;
+            this.gInspectionFaults.DefaultVisualStyles.CellStyles.SelectedMouseOver.Background = background28;
             this.gInspectionFaults.DefaultVisualStyles.CellStyles.SelectedMouseOver.TextColor = System.Drawing.Color.Black;
             this.gInspectionFaults.DefaultVisualStyles.ColumnHeaderStyles.Default.Alignment = DevComponents.DotNetBar.SuperGrid.Style.Alignment.MiddleLeft;
-            background19.Color1 = System.Drawing.Color.White;
-            background19.Color2 = System.Drawing.SystemColors.Control;
-            this.gInspectionFaults.DefaultVisualStyles.ColumnHeaderStyles.Default.Background = background19;
+            background29.Color1 = System.Drawing.Color.White;
+            background29.Color2 = System.Drawing.SystemColors.Control;
+            this.gInspectionFaults.DefaultVisualStyles.ColumnHeaderStyles.Default.Background = background29;
             this.gInspectionFaults.DefaultVisualStyles.ColumnHeaderStyles.Default.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            padding4.Left = 5;
-            padding4.Right = 5;
-            this.gInspectionFaults.DefaultVisualStyles.ColumnHeaderStyles.Default.Padding = padding4;
+            padding7.Left = 5;
+            padding7.Right = 5;
+            this.gInspectionFaults.DefaultVisualStyles.ColumnHeaderStyles.Default.Padding = padding7;
             this.gInspectionFaults.DefaultVisualStyles.ColumnHeaderStyles.Default.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.gInspectionFaults.DefaultVisualStyles.ColumnHeaderStyles.ReadOnly.Alignment = DevComponents.DotNetBar.SuperGrid.Style.Alignment.MiddleLeft;
-            background20.Color1 = System.Drawing.Color.White;
-            background20.Color2 = System.Drawing.SystemColors.Control;
-            this.gInspectionFaults.DefaultVisualStyles.ColumnHeaderStyles.ReadOnly.Background = background20;
+            background30.Color1 = System.Drawing.Color.White;
+            background30.Color2 = System.Drawing.SystemColors.Control;
+            this.gInspectionFaults.DefaultVisualStyles.ColumnHeaderStyles.ReadOnly.Background = background30;
             this.gInspectionFaults.DefaultVisualStyles.ColumnHeaderStyles.ReadOnly.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.gInspectionFaults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gInspectionFaults.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed;
@@ -1630,6 +1649,14 @@
             this.gInspectionFaultsFault.MinimumWidth = 300;
             this.gInspectionFaultsFault.Name = "Fault";
             this.gInspectionFaultsFault.Width = 300;
+            // 
+            // gInspectionFaultsPriority
+            // 
+            this.gInspectionFaultsPriority.AutoSizeMode = DevComponents.DotNetBar.SuperGrid.ColumnAutoSizeMode.None;
+            this.gInspectionFaultsPriority.HeaderText = "Priority";
+            this.gInspectionFaultsPriority.MinimumWidth = 75;
+            this.gInspectionFaultsPriority.Name = "Priority";
+            this.gInspectionFaultsPriority.Width = 75;
             // 
             // gInspectionFaultsResolved
             // 
@@ -4648,14 +4675,6 @@
             this.cpMain.TabIndex = 16;
             this.cpMain.Value = 80;
             // 
-            // gInspectionFaultsPriority
-            // 
-            this.gInspectionFaultsPriority.AutoSizeMode = DevComponents.DotNetBar.SuperGrid.ColumnAutoSizeMode.None;
-            this.gInspectionFaultsPriority.HeaderText = "Priority";
-            this.gInspectionFaultsPriority.MinimumWidth = 75;
-            this.gInspectionFaultsPriority.Name = "Priority";
-            this.gInspectionFaultsPriority.Width = 75;
-            // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -5006,6 +5025,8 @@
         private System.Windows.Forms.ToolStripSeparator cmInspectionsS1;
         private System.Windows.Forms.ToolStripMenuItem cmInspectionsExport;
         private DevComponents.DotNetBar.SuperGrid.GridColumn gInspectionFaultsPriority;
+        private DevComponents.DotNetBar.SuperGrid.GridColumn gInspectionAnswersPID;
+        private DevComponents.DotNetBar.SuperGrid.GridColumn gInspectionAnswersQS;
     }
 }
 
