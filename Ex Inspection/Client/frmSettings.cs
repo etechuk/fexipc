@@ -53,7 +53,8 @@ namespace Client
         {
             if (txtGeneralPathData.Text.Trim().Length > 0)
             {
-                Properties.Settings.Default.PathToData = txtGeneralPathData.Text.Trim();
+                string sSep = !txtGeneralPathData.Text.Trim().EndsWith("\\") ? @"\" : "";
+                Properties.Settings.Default.PathToData = txtGeneralPathData.Text.Trim() + sSep;
             }
 
             if (txtVisualPathLogo.Text.Trim().Length > 0)

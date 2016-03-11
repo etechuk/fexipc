@@ -729,8 +729,12 @@ namespace Common
             }
         }
 
-        public void SQLiteImport(string sSQLiteFile)
+        public void SQLiteImport(string sSQLiteFile, Database db)
         {
+            int iCInspections = 0, iCInspectionsAnswers = 0, iCInspectionsFaults = 0, iCItems = 0, iCItemsFaults = 0, iCImages = 0;
+            int iCItemLocationsAreas = 0, iCItemLocationsVessels = 0, iCItemLocationsFloors = 0, iCItemLocationsGrids = 0;
+            int iCItemManufacturers = 0, iCItemDrawings = 0, iCItemDrawingsHac = 0, iCItemDTypes = 0, iCItemPTypes = 0;
+
             List<string> lLocationsAreas = new List<string>();
             List<string> lLocationsVessels = new List<string>();
             List<string> lLocationsFloors = new List<string>();
@@ -858,12 +862,16 @@ namespace Common
                     if (!lLocationsAreas.Contains(dr["name"].ToString()))
                     {
                         AddParameter("name", dr["name"].ToString());
-                        AddParameter("site", iSiteID);
+                        AddParameter("site", dr["site"].ToString());
                         AddParameter("ent", DateTime.Now);
                         try
                         {
                             int iRes = Insert("INSERT INTO locations_areas (name,site,entered,modified) VALUES (@name,@site,@ent,@ent)");
-                            lLocationsAreas.Add(dr["name"].ToString());
+                            if (iRes > 0)
+                            {
+                                iCItemLocationsAreas++;
+                                lLocationsAreas.Add(dr["name"].ToString());
+                            }
                         }
                         catch (SQLiteException)
                         {
@@ -881,13 +889,17 @@ namespace Common
                     if (!lLocationsVessels.Contains(dr["name"].ToString()))
                     {
                         AddParameter("name", dr["name"].ToString());
-                        AddParameter("site", iSiteID);
+                        AddParameter("site", dr["site"].ToString());
                         AddParameter("area", Convert.ToInt32(dr["area"]));
                         AddParameter("ent", DateTime.Now);
                         try
                         {
                             int iRes = Insert("INSERT INTO locations_vessels (name,site,area,entered,modified) VALUES (@name,@site,@area,@ent,@ent)");
-                            lLocationsVessels.Add(dr["name"].ToString());
+                            if (iRes > 0)
+                            {
+                                iCItemLocationsVessels++;
+                                lLocationsVessels.Add(dr["name"].ToString());
+                            }
                         }
                         catch (SQLiteException)
                         {
@@ -905,14 +917,18 @@ namespace Common
                     if (!lLocationsFloors.Contains(dr["name"].ToString()))
                     {
                         AddParameter("name", dr["name"].ToString());
-                        AddParameter("site", iSiteID);
+                        AddParameter("site", dr["site"].ToString());
                         AddParameter("area", Convert.ToInt32(dr["area"]));
                         AddParameter("vessel", Convert.ToInt32(dr["vessel"]));
                         AddParameter("ent", DateTime.Now);
                         try
                         {
                             int iRes = Insert("INSERT INTO locations_floors (name,site,area,vessel,entered,modified) VALUES (@name,@site,@area,@vessel,@ent,@ent)");
-                            lLocationsFloors.Add(dr["name"].ToString());
+                            if (iRes > 0)
+                            {
+                                iCItemLocationsFloors++;
+                                lLocationsFloors.Add(dr["name"].ToString());
+                            }
                         }
                         catch (SQLiteException)
                         {
@@ -930,7 +946,7 @@ namespace Common
                     if (!lLocationsGrids.Contains(dr["name"].ToString()))
                     {
                         AddParameter("name", dr["name"].ToString());
-                        AddParameter("site", iSiteID);
+                        AddParameter("site", dr["site"].ToString());
                         AddParameter("area", Convert.ToInt32(dr["area"]));
                         AddParameter("vessel", Convert.ToInt32(dr["vessel"]));
                         AddParameter("floor", Convert.ToInt32(dr["floor"]));
@@ -938,7 +954,11 @@ namespace Common
                         try
                         {
                             int iRes = Insert("INSERT INTO locations_grids (name,site,area,vessel,floor,entered,modified) VALUES (@name,@site,@area,@vessel,@floor,@ent,@ent)");
-                            lLocationsGrids.Add(dr["name"].ToString());
+                            if (iRes > 0)
+                            {
+                                iCItemLocationsGrids++;
+                                lLocationsGrids.Add(dr["name"].ToString());
+                            }
                         }
                         catch (SQLiteException)
                         {
@@ -960,8 +980,12 @@ namespace Common
                         try
                         {
                             int iRes = Insert("INSERT INTO lists_manufacturers (name,entered,modified) VALUES (@name,@ent,@ent)");
-                            lManufacturers.Add(dr["name"].ToString());
-                            lSQLiteManufacturers.Add(new string[] { dr["_id"].ToString(), dr["name"].ToString() });
+                            if (iRes > 0)
+                            {
+                                iCItemManufacturers++;
+                                lManufacturers.Add(dr["name"].ToString());
+                                lSQLiteManufacturers.Add(new string[] { dr["_id"].ToString(), dr["name"].ToString() });
+                            }
                         }
                         catch (SQLiteException)
                         {
@@ -996,8 +1020,12 @@ namespace Common
                         try
                         {
                             int iRes = Insert("INSERT INTO lists_drawings (name,revision,date,entered,modified) VALUES (@name,@revision,@date,@ent,@ent)");
-                            lDrawings.Add(dr["name"].ToString() + "|" + dr["revision"].ToString() + "|" + dr["date"].ToString());
-                            lSQLiteDrawings.Add(new string[] { dr["_id"].ToString(), dr["name"].ToString(), dr["revision"].ToString(), dr["date"].ToString() });
+                            if (iRes > 0)
+                            {
+                                iCItemDrawings++;
+                                lDrawings.Add(dr["name"].ToString() + "|" + dr["revision"].ToString() + "|" + dr["date"].ToString());
+                                lSQLiteDrawings.Add(new string[] { dr["_id"].ToString(), dr["name"].ToString(), dr["revision"].ToString(), dr["date"].ToString() });
+                            }
                         }
                         catch (SQLiteException)
                         {
@@ -1032,8 +1060,12 @@ namespace Common
                         try
                         {
                             int iRes = Insert("INSERT INTO lists_drawings_hac (name,revision,date,entered,modified) VALUES (@name,@revision,@date,@ent,@ent)");
-                            lDrawingsHac.Add(dr["name"].ToString() + "|" + dr["revision"].ToString() + "|" + dr["date"].ToString());
-                            lSQLiteDrawingsHac.Add(new string[] { dr["_id"].ToString(), dr["name"].ToString(), dr["revision"].ToString(), dr["date"].ToString() });
+                            if (iRes > 0)
+                            {
+                                iCItemDrawingsHac++;
+                                lDrawingsHac.Add(dr["name"].ToString() + "|" + dr["revision"].ToString() + "|" + dr["date"].ToString());
+                                lSQLiteDrawingsHac.Add(new string[] { dr["_id"].ToString(), dr["name"].ToString(), dr["revision"].ToString(), dr["date"].ToString() });
+                            }
                         }
                         catch (SQLiteException)
                         {
@@ -1055,7 +1087,11 @@ namespace Common
                         try
                         {
                             int iRes = Insert("INSERT INTO lists_types_device (name,entered,modified) VALUES (@name,@ent,@ent)");
-                            lTypesDevice.Add(dr["name"].ToString());
+                            if (iRes > 0)
+                            {
+                                iCItemDTypes++;
+                                lTypesDevice.Add(dr["name"].ToString());
+                            }
                         }
                         catch (SQLiteException)
                         {
@@ -1077,7 +1113,11 @@ namespace Common
                         try
                         {
                             int iRes = Insert("INSERT INTO lists_types_protection (name,entered,modified) VALUES (@name,@ent,@ent)");
-                            lTypesProtection.Add(dr["name"].ToString());
+                            if (iRes > 0)
+                            {
+                                iCItemPTypes++;
+                                lTypesProtection.Add(dr["name"].ToString());
+                            }
                         }
                         catch (SQLiteException)
                         {
@@ -1101,7 +1141,11 @@ namespace Common
                         try
                         {
                             int iRes = Insert("INSERT INTO images (type,typeid,filename,entered,modified) VALUES (@type,@typeid,@filename,@ent,@ent)");
-                            lImages.Add(dr["filename"].ToString());
+                            if (iRes > 0)
+                            {
+                                iCImages++;
+                                lImages.Add(dr["filename"].ToString());
+                            }
                         }
                         catch (SQLiteException)
                         {
@@ -1114,11 +1158,6 @@ namespace Common
             c.CommandText = @"SELECT * FROM items;";
             using (dr = c.ExecuteReader())
             {
-                DataSet dLA = SelectAll("SELECT id,name FROM locations_areas;");
-                DataSet dLV = SelectAll("SELECT id,name FROM locations_vessels;");
-                DataSet dLF = SelectAll("SELECT id,name FROM locations_floors;");
-                DataSet dLG = SelectAll("SELECT id,name FROM locations_grids;");
-
                 while (dr.Read())
                 {
                     int iItemID = 0;
@@ -1135,62 +1174,25 @@ namespace Common
                     string sUpdate = "locationsite=@locationsite";
                     AddParameter("locationsite", iSiteID);
 
-                    if (!dr["locationarea"].ToString().Equals("") && lLocationsAreas.Contains(dr["locationarea"].ToString().Trim()))
-                    {
-                        foreach (DataRow r in dLA.Tables[0].Rows)
-                        {
-                            if (r["name"].ToString().Equals(dr["locationarea"].ToString()))
-                            {
-                                sInsertCols += ",locationarea";
-                                sInsertVals += ",@locationarea";
-                                sUpdate += ",locationarea=@locationarea";
-                                AddParameter("locationarea", Convert.ToInt32(r["id"]));
-                                break;
-                            }
-                        }
-                    }
+                    sInsertCols += ",locationarea";
+                    sInsertVals += ",@locationarea";
+                    sUpdate += ",locationarea=@locationarea";
+                    AddParameter("locationarea", Convert.ToInt32(dr["locationarea"]));
 
-                    if (!dr["locationvessel"].ToString().Equals("") && lLocationsVessels.Contains(dr["locationvessel"].ToString().Trim()))
-                    {
-                        foreach (DataRow r in dLV.Tables[0].Rows)
-                        {
-                            if (r["name"].ToString().Equals(dr["locationvessel"].ToString()))
-                            {
-                                sInsertCols += ",locationvessel";
-                                sInsertVals += ",@locationvessel";
-                                sUpdate += ",locationvessel=@locationvessel";
-                                AddParameter("locationvessel", Convert.ToInt32(r["id"]));
-                            }
-                        }
-                    }
+                    sInsertCols += ",locationvessel";
+                    sInsertVals += ",@locationvessel";
+                    sUpdate += ",locationvessel=@locationvessel";
+                    AddParameter("locationvessel", Convert.ToInt32(dr["locationvessel"]));
 
-                    if (!dr["locationfloor"].ToString().Equals("") && lLocationsFloors.Contains(dr["locationfloor"].ToString().Trim()))
-                    {
-                        foreach (DataRow r in dLF.Tables[0].Rows)
-                        {
-                            if (r["name"].ToString().Equals(dr["locationfloor"].ToString()))
-                            {
-                                sInsertCols += ",locationfloor";
-                                sInsertVals += ",@locationfloor";
-                                sUpdate += ",locationfloor=@locationfloor";
-                                AddParameter("locationfloor", Convert.ToInt32(r["id"]));
-                            }
-                        }
-                    }
+                    sInsertCols += ",locationfloor";
+                    sInsertVals += ",@locationfloor";
+                    sUpdate += ",locationfloor=@locationfloor";
+                    AddParameter("locationfloor", Convert.ToInt32(dr["locationfloor"]));
 
-                    if (!dr["locationgrid"].ToString().Equals("") && lLocationsGrids.Contains(dr["locationgrid"].ToString().Trim()))
-                    {
-                        foreach (DataRow r in dLG.Tables[0].Rows)
-                        {
-                            if (r["name"].ToString().Equals(dr["locationgrid"].ToString()))
-                            {
-                                sInsertCols += ",locationgrid";
-                                sInsertVals += ",@locationgrid";
-                                sUpdate += ",locationgrid=@locationgrid";
-                                AddParameter("locationgrid", Convert.ToInt32(r["id"]));
-                            }
-                        }
-                    }
+                    sInsertCols += ",locationgrid";
+                    sInsertVals += ",@locationgrid";
+                    sUpdate += ",locationgrid=@locationgrid";
+                    AddParameter("locationgrid", Convert.ToInt32(dr["locationgrid"]));
 
                     if (!dr["type_equipment"].ToString().Equals(""))
                     {
@@ -1226,17 +1228,10 @@ namespace Common
 
                     if (!dr["manufacturer"].ToString().Equals(""))
                     {
-                        foreach (string[] s in lSQLiteDrawings)
-                        {
-                            if (s[0].Equals(dr["manufacturer"].ToString()))
-                            {
-                                sInsertCols += ",manufacturer";
-                                sInsertVals += ",@manufacturer";
-                                sUpdate += ",manufacturer=@manufacturer";
-                                AddParameter("manufacturer", Convert.ToInt32(s[0]));
-                                break;
-                            }
-                        }
+                        sInsertCols += ",manufacturer";
+                        sInsertVals += ",@manufacturer";
+                        sUpdate += ",manufacturer=@manufacturer";
+                        AddParameter("manufacturer", Convert.ToInt32(dr["manufacturer"]));
                     }
 
                     if (!dr["type_model"].ToString().Equals(""))
@@ -1359,40 +1354,20 @@ namespace Common
                         AddParameter("ce_number", dr["ce_number"].ToString());
                     }
 
-                    if (!dr["drawing"].ToString().Equals(""))
+                    if (!dr["drawing"].ToString().Equals("") && dr["drawing"].ToString().All(char.IsDigit))
                     {
-                        foreach (string[] s in lSQLiteDrawings)
-                        {
-                            if (s[0].Equals(dr["drawing"].ToString()))
-                            {
-                                if (lDrawings.Contains(s[1] + "|" + s[2] + "|" + s[3]))
-                                {
-                                    sInsertCols += ",drawing";
-                                    sInsertVals += ",@drawing";
-                                    sUpdate += ",drawing=@drawing";
-                                    AddParameter("drawing", Convert.ToInt32(s[0]));
-                                }
-                                break;
-                            }
-                        }
+                        sInsertCols += ",drawing";
+                        sInsertVals += ",@drawing";
+                        sUpdate += ",drawing=@drawing";
+                        AddParameter("drawing", Convert.ToInt32(dr["drawing"]));
                     }
 
-                    if (!dr["drawing_hac"].ToString().Equals(""))
+                    if (!dr["drawing_hac"].ToString().Equals("") && dr["drawing"].ToString().All(char.IsDigit))
                     {
-                        foreach (string[] s in lSQLiteDrawings)
-                        {
-                            if (s[0].Equals(dr["drawing_hac"].ToString()))
-                            {
-                                if (lDrawings.Contains(s[1] + "|" + s[2] + "|" + s[3]))
-                                {
-                                    sInsertCols += ",drawing_hac";
-                                    sInsertVals += ",@drawing_hac";
-                                    sUpdate += ",drawing_hac=@drawing_hac";
-                                    AddParameter("drawing_hac", Convert.ToInt32(s[0]));
-                                }
-                                break;
-                            }
-                        }
+                        sInsertCols += ",drawing_hac";
+                        sInsertVals += ",@drawing_hac";
+                        sUpdate += ",drawing_hac=@drawing_hac";
+                        AddParameter("drawing_hac", Convert.ToInt32(dr["drawing_hac"]));
                     }
 
                     if (!dr["drawing_device_loop"].ToString().Equals(""))
@@ -1484,6 +1459,10 @@ namespace Common
                             sInsertVals += ",@ent";
                             sUpdate += ",entered=@ent";
                             int iRes = Insert("INSERT INTO items (" + sInsertCols + ") VALUES (" + sInsertVals + ")");
+                            if (iRes > 0)
+                            {
+                                iCItems++;
+                            }
                             lItems.Add(dr["tag"].ToString() + "|" + dr["barcode"].ToString());
                         }
                     }
@@ -1516,6 +1495,10 @@ namespace Common
                     try
                     {
                         int iRes = Insert("INSERT INTO items_faults (item,fault,priority,entered,modified) VALUES (@item,@fault,@priority,@ent,@ent)");
+                        if (iRes > 0)
+                        {
+                            iCItemsFaults++;
+                        }
                     }
                     catch (SQLiteException)
                     {
@@ -1533,29 +1516,146 @@ namespace Common
                     {
                         continue;
                     }
+                    int iItem = 0;
+                    db.AddParameter("tag", Convert.ToInt32(dr["item"]));
+                    DataSet t = db.SelectAll("SELECT id FROM items WHERE tag=@tag;");
+                    if (t.Tables.Count == 1 && t.Tables[0].Rows.Count > 0)
+                    {
+                        iItem = Convert.ToInt32(t.Tables[0].Rows[0]["id"]);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
                     AddParameter("workorder", dr["workorder"].ToString());
                     AddParameter("inspector", Convert.ToInt32(dr["inspector"]));
-                    AddParameter("item", Convert.ToInt32(dr["item"]));
+                    AddParameter("item", iItem);
                     AddParameter("schedule", Convert.ToInt32(dr["schedule"]));
                     AddParameter("electrical", dr["electrical"].ToString());
                     AddParameter("mechanical", dr["mechanical"].ToString());
                     string sPriority = dr["priority"].ToString().Equals("OK") ? "o" : dr["priority"].ToString().Substring(dr["priority"].ToString().Length - 1, 1);
                     AddParameter("priority", sPriority);
                     AddParameter("comments", dr["comments"].ToString());
-                    bool bIsDate = true;
+                    DateTime dtCompleted = DateTime.Now;
                     try
                     {
-                        DateTime.Parse(dr["date"].ToString());
+                        dtCompleted = DateTime.Parse(dr["entered"].ToString());
                     }
                     catch
                     {
-                        bIsDate = false;
                     }
-                    AddParameter("completed", bIsDate ? Convert.ToDateTime(dr["date"]).ToString() : "");
+                    AddParameter("completed", dtCompleted);
                     AddParameter("ent", DateTime.Now);
                     try
                     {
                         int iRes = Insert("INSERT INTO inspections (workorder,inspector,item,schedule,electrical,mechanical,priority,comments,completed,entered,modified) VALUES (@workorder,@inspector,@item,@schedule,@electrical,@mechanical,@priority,@comments,@completed,@ent,@ent)");
+                        if (iRes > 0)
+                        {
+                            iCInspections++;
+
+                            c.CommandText = @"SELECT inspection,question,part,answer FROM inspections_answers;";
+                            using (dr = c.ExecuteReader())
+                            {
+                                while (dr.Read())
+                                {
+                                    int iInspectionID = 0;
+                                    AddParameter("inspection", Convert.ToInt32(dr["inspection"]));
+                                    AddParameter("question", Convert.ToInt32(dr["question"]));
+                                    string sPart = " AND part=@part";
+                                    if (dr["part"].ToString() == "" || dr["part"].ToString() == "0")
+                                    {
+                                        sPart = "";
+                                    }
+                                    else
+                                    {
+                                        AddParameter("part", Convert.ToInt32(dr["part"]));
+                                    }
+                                    DataSet d = SelectAll("SELECT id FROM inspections_answers WHERE inspection=@inspection AND question=@question" + sPart + ";");
+                                    if (d.Tables.Count == 1 && d.Tables[0].Rows.Count > 0)
+                                    {
+                                        iInspectionID = Convert.ToInt32(d.Tables[0].Rows[0]["id"]);
+                                    }
+
+                                    AddParameter("inspection", Convert.ToInt32(dr["inspection"]));
+                                    AddParameter("question", Convert.ToInt32(dr["question"]));
+                                    AddParameter("part", Convert.ToInt32(dr["part"]));
+                                    AddParameter("answer", dr["answer"].ToString());
+                                    AddParameter("ent", dtCompleted);
+                                    try
+                                    {
+                                        if (iInspectionID > 0)
+                                        {
+                                            int iT = Update("UPDATE inspections_answers SET answer=@answer,modified=@ent WHERE id=" + iInspectionID + ";");
+                                        }
+                                        else
+                                        {
+                                            int iT = Insert("INSERT INTO inspections_answers (inspection,question,part,answer,entered,modified) VALUES (@inspection,@question,@part,@answer,@ent,@ent)");
+                                            if (iRes > 0)
+                                            {
+                                                iCInspectionsAnswers++;
+                                            }
+                                        }
+                                    }
+                                    catch (SQLiteException)
+                                    {
+                                        System.Windows.Forms.MessageBox.Show("Inspection answers were not updated.\nPlease try again.", "Inspection Answers", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                                    }
+                                }
+                            }
+
+                            c.CommandText = @"SELECT inspection,question,part,fault,priority FROM inspections_faults;";
+                            using (dr = c.ExecuteReader())
+                            {
+                                while (dr.Read())
+                                {
+                                    int iFaultID = 0;
+                                    AddParameter("inspection", Convert.ToInt32(dr["inspection"]));
+                                    AddParameter("question", Convert.ToInt32(dr["question"]));
+                                    string sPart = " AND part=@part";
+                                    if (dr["part"].ToString() == "" || dr["part"].ToString() == "0")
+                                    {
+                                        sPart = "";
+                                    }
+                                    else
+                                    {
+                                        AddParameter("part", Convert.ToInt32(dr["part"]));
+                                    }
+                                    DataSet d = SelectAll("SELECT id FROM inspections_faults WHERE inspection=@inspection AND question=@question" + sPart + ";");
+                                    if (d.Tables.Count == 1 && d.Tables[0].Rows.Count > 0)
+                                    {
+                                        iFaultID = Convert.ToInt32(d.Tables[0].Rows[0]["id"]);
+                                    }
+
+                                    AddParameter("inspection", Convert.ToInt32(dr["inspection"]));
+                                    AddParameter("question", Convert.ToInt32(dr["question"]));
+                                    AddParameter("part", Convert.ToInt32(dr["part"]));
+                                    AddParameter("fault", dr["fault"].ToString());
+                                    string sFaultPriority = dr["priority"].ToString().Equals("OK") ? "o" : dr["priority"].ToString().Substring(dr["priority"].ToString().Length - 1, 1);
+                                    AddParameter("priority", sFaultPriority);
+                                    AddParameter("ent", dtCompleted);
+                                    try
+                                    {
+                                        if (iFaultID > 0)
+                                        {
+                                            int iT = Update("UPDATE inspections_faults SET fault=@fault,priority=@priority,modified=@ent WHERE id=" + iFaultID + ";");
+                                        }
+                                        else
+                                        {
+                                            int iT = Insert("INSERT INTO inspections_faults (inspection,question,part,fault,priority,entered,modified) VALUES (@inspection,@question,@part,@fault,@priority,@ent,@ent)");
+                                            if (iRes > 0)
+                                            {
+                                                iCInspectionsFaults++;
+                                            }
+                                        }
+                                    }
+                                    catch (SQLiteException)
+                                    {
+                                        System.Windows.Forms.MessageBox.Show("Inspection faults were not updated.\nPlease try again.", "Inspection Faults", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                                    }
+                                }
+                            }
+                        }
                     }
                     catch (SQLiteException)
                     {
@@ -1563,101 +1663,6 @@ namespace Common
                     }
                 }
             }
-
-            c.CommandText = @"SELECT inspection,question,part,answer FROM inspections_answers;";
-            using (dr = c.ExecuteReader())
-            {
-                while (dr.Read())
-                {
-                    int iInspectionID = 0;
-                    AddParameter("inspection", Convert.ToInt32(dr["inspection"]));
-                    AddParameter("question", Convert.ToInt32(dr["question"]));
-                    string sPart = " AND part=@part";
-                    if (dr["part"].ToString() == "" || dr["part"].ToString() == "0")
-                    {
-                        sPart = "";
-                    }
-                    else
-                    {
-                        AddParameter("part", Convert.ToInt32(dr["part"]));
-                    }
-                    DataSet d = SelectAll("SELECT id FROM inspections_answers WHERE inspection=@inspection AND question=@question" + sPart + ";");
-                    if (d.Tables.Count == 1 && d.Tables[0].Rows.Count > 0)
-                    {
-                        iInspectionID = Convert.ToInt32(d.Tables[0].Rows[0]["id"]);
-                    }
-
-                    AddParameter("inspection", Convert.ToInt32(dr["inspection"]));
-                    AddParameter("question", Convert.ToInt32(dr["question"]));
-                    AddParameter("part", Convert.ToInt32(dr["part"]));
-                    AddParameter("answer", dr["answer"].ToString());
-                    AddParameter("ent", DateTime.Now);
-                    try
-                    {
-                        if (iInspectionID > 0)
-                        {
-                            int iRes = Update("UPDATE inspections_answers SET answer=@answer,modified=@ent WHERE id=" + iInspectionID + ";");
-                        }
-                        else
-                        {
-                            int iRes = Insert("INSERT INTO inspections_answers (inspection,question,part,answer,entered,modified) VALUES (@inspection,@question,@part,@answer,@ent,@ent)");
-                        }
-                    }
-                    catch (SQLiteException)
-                    {
-                        System.Windows.Forms.MessageBox.Show("Inspection answers were not updated.\nPlease try again.", "Inspection Answers", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                    }
-                }
-            }
-
-            c.CommandText = @"SELECT inspection,question,part,fault,priority FROM inspections_faults;";
-            using (dr = c.ExecuteReader())
-            {
-                while (dr.Read())
-                {
-                    int iFaultID = 0;
-                    AddParameter("inspection", Convert.ToInt32(dr["inspection"]));
-                    AddParameter("question", Convert.ToInt32(dr["question"]));
-                    string sPart = " AND part=@part";
-                    if (dr["part"].ToString() == "" || dr["part"].ToString() == "0")
-                    {
-                        sPart = "";
-                    }
-                    else
-                    {
-                        AddParameter("part", Convert.ToInt32(dr["part"]));
-                    }
-                    DataSet d = SelectAll("SELECT id FROM inspections_faults WHERE inspection=@inspection AND question=@question" + sPart + ";");
-                    if (d.Tables.Count == 1 && d.Tables[0].Rows.Count > 0)
-                    {
-                        iFaultID = Convert.ToInt32(d.Tables[0].Rows[0]["id"]);
-                    }
-
-                    AddParameter("inspection", Convert.ToInt32(dr["inspection"]));
-                    AddParameter("question", Convert.ToInt32(dr["question"]));
-                    AddParameter("part", Convert.ToInt32(dr["part"]));
-                    AddParameter("fault", dr["fault"].ToString());
-                    string sPriority = dr["priority"].ToString().Equals("OK") ? "o" : dr["priority"].ToString().Substring(dr["priority"].ToString().Length - 1, 1);
-                    AddParameter("priority", sPriority);
-                    AddParameter("ent", DateTime.Now);
-                    try
-                    {
-                        if (iFaultID > 0)
-                        {
-                            int iRes = Update("UPDATE inspections_answers SET fault=@fault,priority=@priority,modified=@ent WHERE id=" + iFaultID + ";");
-                        }
-                        else
-                        {
-                            int iRes = Insert("INSERT INTO inspections_faults (inspection,question,part,fault,priority,entered,modified) VALUES (@inspection,@question,@part,@fault,@priority,@ent,@ent)");
-                        }
-                    }
-                    catch (SQLiteException)
-                    {
-                        System.Windows.Forms.MessageBox.Show("Inspection faults were not updated.\nPlease try again.", "Inspection Faults", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                    }
-                }
-            }
-
         }
 
         #endregion

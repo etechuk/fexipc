@@ -95,7 +95,7 @@ namespace Client
             bDataPulled = device.PullDirectory(sAndroidDataPath, sBakDir);
             if (bDataPulled && File.Exists(sBakDir + @"\" + sAndroidDataFile))
             {
-                Program.SQL.SQLiteImport(sBakDir + @"\" + sAndroidDataFile);
+                Program.SQL.SQLiteImport(sBakDir + @"\" + sAndroidDataFile, Program.SQL);
                 bool bImagesPulled = device.PullDirectory(sAndroidDataPath + "images/", sBakDir + @"\images");
             }
 

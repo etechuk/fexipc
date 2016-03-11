@@ -61,6 +61,17 @@ namespace Common
             }
             return hash.ToString();
         }
+
+        public static void CopyResource(Stream input, Stream output)
+        {
+            // Insert null checking here for production
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+            while ((bytesRead = input.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                output.Write(buffer, 0, bytesRead);
+            }
+        }
     }
 
     public static class Extension

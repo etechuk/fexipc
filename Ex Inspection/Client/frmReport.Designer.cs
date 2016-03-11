@@ -35,11 +35,14 @@
             // 
             // rv
             // 
+            this.rv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rv.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.rv.ForeColor = System.Drawing.Color.Black;
-            this.rv.Location = new System.Drawing.Point(13, 13);
+            this.rv.Location = new System.Drawing.Point(4, 12);
             this.rv.Name = "rv";
-            this.rv.Size = new System.Drawing.Size(919, 556);
+            this.rv.Size = new System.Drawing.Size(936, 564);
             this.rv.TabIndex = 0;
             // 
             // sm
@@ -55,6 +58,7 @@
             this.Controls.Add(this.rv);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ForeColor = System.Drawing.Color.Black;
             this.Name = "frmReport";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Report";

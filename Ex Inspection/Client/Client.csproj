@@ -59,7 +59,9 @@
     <Reference Include="DevComponents.DotNetBar.Schedule, Version=12.7.0.2, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.7.0.2, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar2, Version=12.7.0.2, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -289,8 +291,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports\rptInspectionDE.rdlc" />
+    <EmbeddedResource Include="Reports\rptInspectionTD.rdlc" />
+    <EmbeddedResource Include="Reports\rptInspectionT.rdlc" />
+    <EmbeddedResource Include="Reports\rptInspectionN.rdlc" />
+    <EmbeddedResource Include="Reports\rptInspectionE.rdlc" />
+    <EmbeddedResource Include="Reports\rptInspectionD.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionNL.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionID.rdlc" />
+    <EmbeddedResource Include="Reports\rptInspectionPD.rdlc" />
+    <EmbeddedResource Include="Reports\rptInspectionP.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionI.rdlc" />
     <None Include="app.config" />
     <None Include="packages.config" />
@@ -328,6 +338,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\exinspection.apk" />
     <None Include="Resources\logo-fes.ico" />
   </ItemGroup>
   <ItemGroup>

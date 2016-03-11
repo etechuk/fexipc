@@ -3,6 +3,7 @@ using System.Collections;
 using System.Data;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -29,13 +30,24 @@ namespace Client
             if (Properties.Settings.Default.PathToData == "")
             {
                 string sDir = Path.GetPathRoot(Environment.SystemDirectory) + @"\FES Data\";
-                if (!Directory.Exists(sDir))
-                {
-                    DirectoryInfo inf = Directory.CreateDirectory(sDir);
-                }
-
                 Properties.Settings.Default.PathToData = sDir;
                 Properties.Settings.Default.Save();
+            }
+
+            if (!Directory.Exists(Properties.Settings.Default.PathToData))
+            {
+                DirectoryInfo inf = Directory.CreateDirectory(Properties.Settings.Default.PathToData);
+            }
+
+            if (!File.Exists(Properties.Settings.Default.PathToData + @"exinspection.apk"))
+            {
+                Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream("Client.Resources.exinspection.apk");
+                FileStream fs = new FileStream(Properties.Settings.Default.PathToData + @"exinspection.apk", FileMode.CreateNew);
+                for (int i = 0; i < s.Length; i++)
+                {
+                    fs.WriteByte((byte)s.ReadByte());
+                }
+                fs.Close();
             }
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-GB");
