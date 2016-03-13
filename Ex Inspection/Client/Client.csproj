@@ -291,15 +291,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Reports\rptInspectionDE.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionTD.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionT.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionN.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionE.rdlc" />
+    <EmbeddedResource Include="Reports\rptInspectionDE.rdlc" />
+    <EmbeddedResource Include="Reports\rptInspectionPD.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionD.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionNL.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionID.rdlc" />
-    <EmbeddedResource Include="Reports\rptInspectionPD.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionP.rdlc" />
     <EmbeddedResource Include="Reports\rptInspectionI.rdlc" />
     <None Include="app.config" />

@@ -32,36 +32,25 @@ namespace Client
         {
             if (!SharedData.bExportMultiple && SharedData.drExportInspection != null)
             {
-                int iItem = SharedData.drExportInspection["item"] != DBNull.Value ? Convert.ToInt32(SharedData.drExportInspection["item"]) : 0;
-                int iSchedule = SharedData.drExportInspection["schedule"] != DBNull.Value ? Convert.ToInt32(SharedData.drExportInspection["schedule"]) : 0;
+                int iItem = Convert.ToInt32(SharedData.drExportInspection["item"]);
+                int iSchedule = Convert.ToInt32(SharedData.drExportInspection["schedule"]);
 
                 DataSet dItem = Program.SQL.SelectAll("SELECT * FROM items WHERE id=" + iItem + ";");
                 DataSet dSchedule = Program.SQL.SelectAll("SELECT grade,type FROM schedules WHERE id=" + iSchedule + ";");
-                if (dItem.Tables.Count < 1 || dItem.Tables[0].Rows.Count < 1)
-                {
-                    MessageBox.Show("No item was found for the selected inspection.", "No Item", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    return;
-                }
-                if (dSchedule.Tables.Count < 1 || dSchedule.Tables[0].Rows.Count < 1)
-                {
-                    MessageBox.Show("No schedule was found for the selected inspection.", "No Schedule", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    return;
-                }
-
+                DataRow dIt = dItem.Tables[0].Rows[0], dSc = dSchedule.Tables[0].Rows[0];
                 DataRow dIn = SharedData.drExportInspection;
                 SharedData.drExportInspection = null;
 
                 int iInspection = dIn["id"] != DBNull.Value ? Convert.ToInt32(dIn["id"]) : 0;
-                if (iInspection > 0 && iItem > 0 && iSchedule > 0)
+                if (iInspection > 0)
                 {
                     DataSet ds = new DataSet(), d;
                     DataTable dt = new DataTable("inspection");
                     dt.Columns.Add("inspection");
                     ds.Tables.Add(dt);
-                    DataRow dIt = dItem.Tables[0].Rows[0], dSc = dSchedule.Tables[0].Rows[0];
 
                     //rv.LocalReport.ReportPath = Properties.Settings.Default.PathToData + @"\templates\inspections_" + dSchedule.Tables[0].Rows[0]["type"].ToString().ToLower();
-                    rv.LocalReport.ReportEmbeddedResource = "Client.Reports.rptInspectionI.rdlc";
+                    rv.LocalReport.ReportEmbeddedResource = "Client.Reports.rptInspection" + dSc["type"].ToString().ToUpper() + ".rdlc";
                     rv.LocalReport.DataSources.Clear();
 
                     string sInspector = "";
@@ -165,6 +154,7 @@ namespace Client
                     // ITEM
                     p.Add(new ReportParameter("location1", sLocation1));
                     p.Add(new ReportParameter("location2", sLocation2));
+                    p.Add(new ReportParameter("locationall", (sLocation1 != "" && sLocation2 != "" ? sLocation1 + "; " + sLocation2 : (sLocation1 != "" ? sLocation1 : sLocation2))));
                     p.Add(new ReportParameter("description", dIt["description"].ToString() != "" ? dIt["description"].ToString() : ""));
                     p.Add(new ReportParameter("manufacturer", sManufacturer));
                     p.Add(new ReportParameter("serial", dIt["serial"].ToString() != "" ? dIt["serial"].ToString() : ""));
@@ -173,7 +163,7 @@ namespace Client
                     p.Add(new ReportParameter("drawinghac", sDrawingHac));
                     p.Add(new ReportParameter("drawingdl", dIt["drawing_device_loop"].ToString() != "" ? dIt["drawing_device_loop"].ToString() : ""));
                     p.Add(new ReportParameter("atexprot", sAtexProtection));
-                    p.Add(new ReportParameter("atexcert", dIt["cert_equipment"].ToString()));
+                    p.Add(new ReportParameter("atexcert", dIt["cert_equipment"].ToString() != "" ? dIt["cert_equipment"].ToString() : ""));
                     p.Add(new ReportParameter("ptype", dIt["type_protection"].ToString() != "" ? dIt["type_protection"].ToString() : ""));
                     p.Add(new ReportParameter("haczone", sHacZone));
                     p.Add(new ReportParameter("tracehc", dIt["cpref"].ToString() == "y" ? "Yes" : "No"));
@@ -284,6 +274,7 @@ namespace Client
                             }
                         }
                     }
+
                     p.Add(new ReportParameter("faults1", sFaults[0]));
                     p.Add(new ReportParameter("faults2", sFaults[1]));
                     p.Add(new ReportParameter("faults3", sFaults[2]));

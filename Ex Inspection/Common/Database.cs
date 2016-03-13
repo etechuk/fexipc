@@ -847,7 +847,7 @@ namespace Common
 
             c = sc.CreateCommand();
             c.CommandText = @"SELECT sval FROM settings WHERE skey='siteid';";
-            SQLiteDataReader dr = c.ExecuteReader();
+            SQLiteDataReader dr = c.ExecuteReader(), tr;
             if (dr.HasRows && dr.Read())
             {
                 iSiteID = Convert.ToInt32(dr["sval"]);
@@ -1507,7 +1507,7 @@ namespace Common
                 }
             }
 
-            c.CommandText = @"SELECT workorder,inspector,item,schedule,electrical,mechanical,priority,comments,entered FROM inspections;";
+            c.CommandText = @"SELECT _id,workorder,inspector,item,schedule,electrical,mechanical,priority,comments,entered FROM inspections;";
             using (dr = c.ExecuteReader())
             {
                 while (dr.Read())
@@ -1554,22 +1554,24 @@ namespace Common
                         {
                             iCInspections++;
 
-                            c.CommandText = @"SELECT inspection,question,part,answer FROM inspections_answers;";
-                            using (dr = c.ExecuteReader())
+                            SQLiteCommand ct;
+                            ct = sc.CreateCommand();
+                            ct.CommandText = @"SELECT inspection,question,part,answer FROM inspections_answers WHERE inspection=" + dr["inspection"].ToString() + ";";
+                            using (tr = ct.ExecuteReader())
                             {
-                                while (dr.Read())
+                                while (tr.Read())
                                 {
                                     int iInspectionID = 0;
-                                    AddParameter("inspection", Convert.ToInt32(dr["inspection"]));
-                                    AddParameter("question", Convert.ToInt32(dr["question"]));
+                                    AddParameter("inspection", Convert.ToInt32(tr["inspection"]));
+                                    AddParameter("question", Convert.ToInt32(tr["question"]));
                                     string sPart = " AND part=@part";
-                                    if (dr["part"].ToString() == "" || dr["part"].ToString() == "0")
+                                    if (tr["part"].ToString() == "" || tr["part"].ToString() == "0")
                                     {
                                         sPart = "";
                                     }
                                     else
                                     {
-                                        AddParameter("part", Convert.ToInt32(dr["part"]));
+                                        AddParameter("part", Convert.ToInt32(tr["part"]));
                                     }
                                     DataSet d = SelectAll("SELECT id FROM inspections_answers WHERE inspection=@inspection AND question=@question" + sPart + ";");
                                     if (d.Tables.Count == 1 && d.Tables[0].Rows.Count > 0)
@@ -1577,10 +1579,10 @@ namespace Common
                                         iInspectionID = Convert.ToInt32(d.Tables[0].Rows[0]["id"]);
                                     }
 
-                                    AddParameter("inspection", Convert.ToInt32(dr["inspection"]));
-                                    AddParameter("question", Convert.ToInt32(dr["question"]));
-                                    AddParameter("part", Convert.ToInt32(dr["part"]));
-                                    AddParameter("answer", dr["answer"].ToString());
+                                    AddParameter("inspection", Convert.ToInt32(iRes));
+                                    AddParameter("question", Convert.ToInt32(tr["question"]));
+                                    AddParameter("part", Convert.ToInt32(tr["part"]));
+                                    AddParameter("answer", tr["answer"].ToString());
                                     AddParameter("ent", dtCompleted);
                                     try
                                     {
@@ -1604,8 +1606,8 @@ namespace Common
                                 }
                             }
 
-                            c.CommandText = @"SELECT inspection,question,part,fault,priority FROM inspections_faults;";
-                            using (dr = c.ExecuteReader())
+                            ct.CommandText = @"SELECT inspection,question,part,fault,priority FROM inspections_faults;";
+                            using (dr = ct.ExecuteReader())
                             {
                                 while (dr.Read())
                                 {

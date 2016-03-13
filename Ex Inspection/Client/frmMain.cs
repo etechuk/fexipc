@@ -95,9 +95,9 @@ namespace Client
             dsItems = Program.SQL.SelectAll("SELECT * FROM items;");
             dsItemsFaults = Program.SQL.SelectAll("SELECT id,item,resolved FROM items_faults;");
 
-            dtInspectionsFilterFrom.Text = DateTime.Now.AddYears(-5).ToString();
+            dtInspectionsFilterFrom.Text = DateTime.Now.AddDays(-14).ToString();
             dtInspectionsFilterTo.Text = DateTime.Now.ToString();
-            dtItemsFilterFrom.Text = DateTime.Now.AddYears(-5).ToString();
+            dtItemsFilterFrom.Text = DateTime.Now.AddDays(-14).ToString();
             dtItemsFilterTo.Text = DateTime.Now.ToString();
 
             LoadLists();
@@ -109,6 +109,7 @@ namespace Client
             else
             {
                 LoadInspections();
+                tvInspections.Nodes[0].RaiseClick();
             }
             if (tvItems.Nodes.Count < 1)
             {
@@ -117,6 +118,7 @@ namespace Client
             else
             {
                 LoadItems();
+                tvItems.Nodes[0].RaiseClick();
             }
 
             cpMain.SendToBack();
@@ -2241,6 +2243,27 @@ namespace Client
                 {
                     if (r["id"].ToString() == grInspection.Tag.ToString())
                     {
+                        DataSet dItem = Program.SQL.SelectAll("SELECT * FROM items WHERE id=" + r["item"].ToString() + ";");
+                        if (dItem.Tables.Count < 1 || dItem.Tables[0].Rows.Count < 1)
+                        {
+                            MessageBox.Show("No item was found for the selected inspection.", "No Item", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            return;
+                        }
+
+                        DataSet dSchedule = Program.SQL.SelectAll("SELECT grade,type FROM schedules WHERE id=" + r["schedule"].ToString() + ";");
+                        if (dSchedule.Tables.Count < 1 || dSchedule.Tables[0].Rows.Count < 1)
+                        {
+                            MessageBox.Show("No schedule was found for the selected inspection.", "No Schedule", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            return;
+                        }
+
+                        DataSet dAnswers = Program.SQL.SelectAll("SELECT id,question,part,answer FROM inspections_answers WHERE inspection=" + r["id"].ToString() + ";");
+                        if (dAnswers.Tables.Count < 1 || dAnswers.Tables[0].Rows.Count < 1)
+                        {
+                            MessageBox.Show("No answers were found for the selected inspection.", "No Answers", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            return;
+                        }
+
                         SharedData.drExportInspection = r;
                         break;
                     }
